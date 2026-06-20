@@ -36,12 +36,15 @@ const userRequestHandler = (req, res) => {
       // }
       const bodyObject = Object.fromEntries(params);
       console.log(bodyObject);
-      fs.writeFileSync('user.txt', JSON.stringify(bodyObject));
+      fs.writeFile('user.txt', JSON.stringify(bodyObject) , (err) => {
+        if(err) console.log('error ocurred');
+        else console.log('file Written successfully');
+        res.statusCode = 302;
+        res.setHeader('Location', '/');
+        return res.end();
+      });
     });
 
-    res.statusCode = 302;
-    res.setHeader('Location', '/');
-    return res.end();
   } 
   else{
     res.setHeader('Content-type', 'text/html');
@@ -51,6 +54,6 @@ const userRequestHandler = (req, res) => {
     res.write('</html>');
     return res.end();
   } 
-}
+};
 
 module.exports = userRequestHandler;
