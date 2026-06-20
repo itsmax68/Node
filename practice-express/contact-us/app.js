@@ -1,5 +1,6 @@
 //external module
 const express = require('express');
+const bodyParser = require('body-parser'); 
 
 const app = express();
 
@@ -35,7 +36,14 @@ app.get("/contact-us" , (req, res, next) => {
 });
 
 app.post('/contact-us', (req,res,next) => {
-  console.log('Handeling for post' , req.url , req.method);
+  console.log('first handeling' , req.url , req.method, req.body);
+  next();
+});
+
+app.use(bodyParser.urlencoded());
+
+app.post('/contact-us', (req,res,next) => {
+  console.log('Handeling for post' , req.url , req.method, req.body);
   res.send(`<h1>we will contact you</h1>`);
 });
 
