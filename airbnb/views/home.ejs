@@ -21,35 +21,66 @@
 </head>
 <body class="bg-[#f5f5f5] min-h-screen font-sans">
 
-  <%- include('partials/nav') %>
+  <!-- Passing context name to identify current page in navigation partial -->
+  <%- include('partials/nav', { currentPage: 'home' }) %>
 
-    <main class="flex justify-center mt-12 px-4">
-      <div class="bg-white py-12 px-8 shadow-[0_4px_8px_rgba(0,0,0,0.1)] rounded-lg w-full max-w-[600px]">
-        
-        <h1 class="text-[#333333] text-3xl font-bold tracking-tight text-center mb-8 pb-4 border-b border-gray-100">
-          Here are our registered homes
-        </h1>
-  
-        <% if (registeredHomes && registeredHomes.length > 0) { %>
-          <ul class="space-y-3 text-left">
-            <% registeredHomes.forEach(home => { %>
-              <li class="bg-gray-50 border border-gray-200 rounded-lg px-5 py-4 text-gray-700 font-medium shadow-sm hover:border-gray-300 transition-colors flex items-center justify-between">
-                <span class="truncate"><%= home.HouseName %></span>
-                <span class="text-xs bg-red-50 text-[#ff5a5f] font-semibold px-2.5 py-1 rounded-full uppercase tracking-wider">Active</span>
-              </li>
-            <% }) %>
-          </ul>
-        <% } else { %>
-          <div class="text-center py-6">
-            <p class="text-gray-400 mb-4">No homes registered yet.</p>
-            <a href="/host/add-home" class="inline-block bg-[#ff5a5f] text-white font-semibold px-4 py-2 rounded text-sm hover:bg-[#e54e52] transition-colors">
-              Add the First Home
-            </a>
-          </div>
-        <% } %>
+  <main class="flex justify-center mt-12 px-4">
+    <!-- Container styled perfectly to hold the cards cleanly -->
+    <div class="bg-white py-12 px-8 shadow-[0_4px_8px_rgba(0,0,0,0.1)] rounded-lg w-full max-w-[850px]">
+      
+      <h1 class="text-[#ff5a5f] text-2xl font-bold tracking-tight text-center mb-8">
+        Here are our registered homes:
+      </h1>
 
-      </div>
-    </main>
+      <% if (registeredHomes && registeredHomes.length > 0) { %>
+        <!-- Grid layout for the listing cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 justify-center">
+          <% registeredHomes.forEach(home => { %>
+            <div class="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200 text-left max-w-[240px] mx-auto w-full">
+              
+              <!-- Card Image with reliable fallback photo link -->
+              <img 
+                src="<%= (home.photo && home.photo.trim() !== '') ? home.photo : 'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=600&auto=format&fit=crop' %>" 
+                alt="<%= home.HouseName %>" 
+                class="w-full h-48 object-cover"
+                onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=600&auto=format&fit=crop';"
+              >
+              
+              <!-- Card Content Details -->
+              <div class="p-4">
+                <h3 class="text-xl font-semibold text-gray-800 mb-1 truncate">
+                  <%= home.HouseName %>
+                </h3>
+                <p class="text-sm text-gray-500 mb-2 truncate">
+                  <%= home.location || 'Bhavnagar' %>
+                </p>
+                
+                <div class="flex items-center justify-between mt-3 pt-1 border-t border-gray-50">
+                  <p class="text-[#ff5a5f] font-bold text-sm">
+                    Rs<%= home.price || '999' %> / <span class="font-normal text-xs text-gray-500">night</span>
+                  </p>
+                  
+                  <div class="flex items-center text-sm text-gray-600 bg-gray-50 px-2 py-0.5 rounded">
+                    <span class="text-yellow-400 mr-1">★</span>
+                    <span><%= home.rating || '5' %></span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          <% }) %>
+        </div>
+      <% } else { %>
+        <div class="text-center py-12">
+          <p class="text-gray-400 mb-4">No homes registered yet.</p>
+          <a href="/host/add-home" class="inline-block bg-[#ff5a5f] text-white font-semibold px-4 py-2 rounded text-sm hover:bg-[#e54e52] transition-colors">
+            Add the First Home
+          </a>
+        </div>
+      <% } %>
+
+    </div>
+  </main>
 
 </body>
 </html>
