@@ -1,0 +1,70 @@
+<%- include('../partials/head') %>
+</head>
+<body class="bg-[#f5f5f5] min-h-screen font-sans">
+
+  <%- include('../partials/nav', { currentPage: 'home' }) %>
+
+  <main class="flex justify-center mt-12 px-4">
+    <div class="bg-white py-12 px-8 shadow-[0_4px_8px_rgba(0,0,0,0.1)] rounded-lg w-full max-w-[850px]">
+      
+      <h1 class="text-[#ff5a5f] text-2xl font-bold tracking-tight text-center mb-8">
+        Here are our Favourites:
+      </h1>
+
+      <% if (registeredHomes && registeredHomes.length > 0) { %>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 justify-center">
+          <% registeredHomes.forEach(home => { %>
+            <div class="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200 text-left max-w-[240px] mx-auto w-full">
+              
+              <img 
+                src="<%= (home.photo && home.photo.trim() !== '') ? home.photo : 'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=600&auto=format&fit=crop' %>" 
+                alt="<%= home.HouseName %>" 
+                class="w-full h-48 object-cover"
+                onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=600&auto=format&fit=crop';"
+              >
+              
+              <div class="p-4">
+                <div class="flex items-start justify-between gap-2 mb-1">
+                  <h3 class="text-xl font-semibold text-gray-800 truncate">
+                    <%= home.HouseName %> 
+                  </h3> 
+                  <div class="flex items-center text-sm text-gray-600 bg-gray-50 px-2 py-0.5 rounded shrink-0">
+                    <span class="text-yellow-400 mr-1">★</span>
+                    <span><%= home.rating || '5' %></span> 
+                  </div>
+                </div>
+                <p class="text-sm text-gray-500 mb-2 truncate"> 
+                  <%= home.location || 'Bhavnagar' %> 
+                </p> 
+                
+                <div class="flex items-center justify-between mt-3 pt-3 border-t border-gray-100"> 
+                  <div class="flex flex-col">
+                    <p class="text-[#ff5a5f] font-bold text-sm"> 
+                      Rs<%= home.price || '999' %> 
+                    </p> 
+                    <span class="font-normal text-xs text-gray-400">/ night</span>
+                  </div>
+                 
+                  <button class="bg-[#ff5a5f] text-white text-xs font-semibold px-4 py-2 rounded-md hover:bg-[#e54e52] transition-colors shadow-sm">
+                    Book
+                  </button>
+                </div>
+              </div>
+
+            </div>
+          <% }) %>
+        </div>
+      <% } else { %>
+        <div class="text-center py-12">
+          <p class="text-gray-400 mb-4">No homes registered yet.</p>
+          <a href="/host/add-home" class="inline-block bg-[#ff5a5f] text-white font-semibold px-4 py-2 rounded text-sm hover:bg-[#e54e52] transition-colors">
+            Add the First Home
+          </a>
+        </div>
+      <% } %>
+
+    </div>
+  </main>
+
+</body>
+</html>
