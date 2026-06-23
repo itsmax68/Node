@@ -1,49 +1,48 @@
-<header class="bg-[#ff5a5f] px-8 py-4 shadow-md">
-  <!-- Changed max-w-600px to justify-center to align links perfectly in the center -->
-  <nav class="flex items-center justify-center space-x-4 mx-auto">
-    
-    <!-- Home Link -->
-    <a href="/" class="font-semibold no-underline transition-all duration-200 px-4 py-2 rounded-md
-      <%= (typeof currentPage !== 'undefined' && currentPage === 'index') 
-        ? 'bg-white text-[#ff5a5f] shadow-sm' 
-        : 'text-white hover:bg-[#e54e52]' %>">
-      airbnb
-    </a>
-
-    <a href="/homes" class="font-semibold no-underline transition-all duration-200 px-4 py-2 rounded-md
-      <%= (typeof currentPage !== 'undefined' && currentPage === 'home') 
-        ? 'bg-white text-[#ff5a5f] shadow-sm' 
-        : 'text-white hover:bg-[#e54e52]' %>">
-      Homes-List
-    </a>
-
-    <a href="/favourites" class="font-semibold no-underline transition-all duration-200 px-4 py-2 rounded-md
-    <%= (typeof currentPage !== 'undefined' && currentPage === '/favourites') 
-      ? 'bg-white text-[#ff5a5f] shadow-sm' 
-      : 'text-white hover:bg-[#e54e52]' %>">
-    My Favourites
-  </a>
-
-    <a href="/bookings" class="font-semibold no-underline transition-all duration-200 px-4 py-2 rounded-md
-    <%= (typeof currentPage !== 'undefined' && currentPage === '/bookings') 
-      ? 'bg-white text-[#ff5a5f] shadow-sm' 
-      : 'text-white hover:bg-[#e54e52]' %>">
-    Bookings
-  </a>
-
-  <a href="/host/host-home-list" class="font-semibold no-underline transition-all duration-200 px-4 py-2 rounded-md
-  <%= (typeof currentPage !== 'undefined' && currentPage === 'host-homes') 
-    ? 'bg-white text-[#ff5a5f] shadow-sm' 
-    : 'text-white hover:bg-[#e54e52]' %>">
-  Host Homes
-</a>
-
-  <a href="/host/add-home" class="font-semibold no-underline transition-all duration-200 px-4 py-2 rounded-md
-  <%= (typeof currentPage !== 'undefined' && currentPage === 'addHome') 
-    ? 'bg-white text-[#ff5a5f] shadow-sm' 
-    : 'text-white hover:bg-[#e54e52]' %>">
-  Add Home
-</a>
-
+<header class="bg-red-500 text-white p-4 shadow-md">
+  <nav class="container mx-auto flex justify-between items-center">
+    <ul class="flex space-x-4">
+      <li>
+        <a
+          href="/"
+          class="<%= currentPage === 'index' ? 'bg-red-400' : 'hover:bg-red-400' %> py-2 px-4 rounded transition duration-300"
+          >airbnb</a
+        >
+      </li>
+      <li>
+        <a
+          href="/homes"
+          class="<%= currentPage === 'Home' ? 'bg-red-400' : 'hover:bg-red-400' %> py-2 px-4 rounded transition duration-300"
+          >Homes-List</a
+        >
+      </li>
+      <li>
+        <a
+          href="/favourites"
+          class="<%= currentPage === 'favourites' ? 'bg-red-400' : 'hover:bg-red-400' %> py-2 px-4 rounded transition duration-300"
+          >Favourites</a
+        >
+      </li>
+      <li>
+        <a
+          href="/bookings"
+          class="<%= currentPage === 'bookings' ? 'bg-red-400' : 'hover:bg-red-400' %> py-2 px-4 rounded transition duration-300"
+          >Bookings</a
+        >
+      </li>
+      <li>
+        <a
+          href="/host/host-home-list"
+          class="<%= currentPage === 'host-homes' ? 'bg-red-400' : 'hover:bg-red-400' %> py-2 px-4 rounded transition duration-300"
+          >Host Homes</a
+        >
+      </li>
+      <li>
+        <a
+          href="/host/add-home"
+          class="<%= currentPage === 'addHome' ? 'bg-red-400' : 'hover:bg-red-400' %> py-2 px-4 rounded transition duration-300"
+          >Add Home</a
+        >
+      </li>
+    </ul>
   </nav>
 </header>
