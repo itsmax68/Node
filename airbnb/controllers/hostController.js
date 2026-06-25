@@ -29,7 +29,7 @@ exports.getEditHome = (req, res, next) => {
 };
 
 exports.getHostHomes = (req, res, next) => {
-  Home.fetchAll().then(registeredHomes => {
+  Home.find().then(registeredHomes => {
     res.render("host/host-home-list", {
       registeredHomes: registeredHomes,
       pageTitle: "Host Homes List",
@@ -40,7 +40,7 @@ exports.getHostHomes = (req, res, next) => {
 
 exports.postAddHome = (req, res, next) => {
   const { houseName, price, location, rating, photoUrl, description} = req.body;
-  const home = new Home(houseName, price, location, rating, photoUrl,description );
+  const home = new Home({houseName, price, location, rating, photoUrl,description });
   home.save().then(() => {
     console.log('home saved sucess');
   });
@@ -49,19 +49,31 @@ exports.postAddHome = (req, res, next) => {
 };
 
 exports.postEditHome = (req, res, next) => {
-  const { id, houseName, price, location, rating, photoUrl ,description} = req.body;
-  const home = new Home(houseName, price, location, rating, photoUrl,description,id);
-  home._id = id;
-  home.save().then(result =>{
-    console.log(result);
-  });
+  const { id, houseName, price, location, rating, photoUrl, description } = req.body;
+  Home.findById(id).then(home => {
+    if (!home) {
+      return res.redirect("/host/host-home-list");
+    }
+    home.houseName = houseName;
+    home.price = price;
+    home.location = location;
+    home.rating = rating;
+    home.photoUrl = photoUrl;
+    home.description = description;
+    return home.save();
+  }).then(result => {
+    console.log("Home Updated");
     res.redirect("/host/host-home-list");
+  }).catch(err => {
+    console.log(err);
+    res.redirect("/host/host-home-list");
+  });
 };
 
 exports.postDeleteHome = (req, res, next) => {
   const homeId = req.params.homeId;
   console.log('Came to delete ', homeId);
-  Home.deleteById(homeId).then(() => {
+  Home.findByIdAndDelete(homeId).then(() => {
     res.redirect("/host/host-home-list");
   }).catch(error => {
     console.log('Error while deleting', error);

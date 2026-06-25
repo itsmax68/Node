@@ -9,7 +9,7 @@ const storeRouter = require("./routes/storeRouter")
 const hostRouter = require("./routes/hostRouter")
 const rootDir = require("./utils/pathUtil");
 const errorsController = require("./controllers/errors");
-const {mongoConnect} = require('./utils/databaseUtil');
+const { default: mongoose } = require('mongoose');
 
 const app = express();
 
@@ -25,8 +25,13 @@ app.use(express.static(path.join(rootDir, 'public')))
 app.use(errorsController.pageNotFound);
 
 const PORT = 3000;
-mongoConnect(() => {
+const DB_PATH = "mongodb+srv://manavkalathiya828_db_user:7d8HrTkoy1qyEGxX@cluster-airbnb.gctjbod.mongodb.net/airbnb?appName=Cluster-airbnb"
+
+mongoose.connect(DB_PATH).then(() =>{
+  console.log('connected to mongo');
   app.listen(PORT, () => {
     console.log(`Server running on address http://localhost:${PORT}`);
   });
+}).catch(err =>{
+  console.log("error while commecting to mongo:",err);
 });
