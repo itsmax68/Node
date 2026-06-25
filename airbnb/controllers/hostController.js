@@ -12,8 +12,7 @@ exports.getEditHome = (req, res, next) => {
   const homeId = req.params.homeId;
   const editing = req.query.editing === 'true';
 
-  Home.findById(homeId).then(([homes]) => {
-    const home = homes[0];
+  Home.findById(homeId).then(home => {
     if (!home) {
       console.log("Home not found for editing.");
       return res.redirect("/host/host-home-list");
@@ -30,7 +29,7 @@ exports.getEditHome = (req, res, next) => {
 };
 
 exports.getHostHomes = (req, res, next) => {
-  Home.fetchAll().then(([registeredHomes])=> {
+  Home.fetchAll().then(registeredHomes => {
     res.render("host/host-home-list", {
       registeredHomes: registeredHomes,
       pageTitle: "Host Homes List",
@@ -42,7 +41,9 @@ exports.getHostHomes = (req, res, next) => {
 exports.postAddHome = (req, res, next) => {
   const { houseName, price, location, rating, photoUrl, description} = req.body;
   const home = new Home(houseName, price, location, rating, photoUrl,description );
-  home.save();
+  home.save().then(() => {
+    console.log('home saved sucess');
+  });
 
     res.redirect("/host/host-home-list");
 };
@@ -50,8 +51,10 @@ exports.postAddHome = (req, res, next) => {
 exports.postEditHome = (req, res, next) => {
   const { id, houseName, price, location, rating, photoUrl ,description} = req.body;
   const home = new Home(houseName, price, location, rating, photoUrl,description,id);
-  home.id = id;
-  home.save();
+  home._id = id;
+  home.save().then(result =>{
+    console.log(result);
+  });
     res.redirect("/host/host-home-list");
 };
 
