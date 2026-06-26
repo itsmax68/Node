@@ -1,68 +1,48 @@
-<header class="bg-red-500 text-white p-4 shadow-md">
-  <nav class="container mx-auto flex justify-between items-center">
-    <ul class="flex space-x-4">
-      <li>
-        <a
-          href="/"
-          class="<%= currentPage === 'index' ? 'bg-red-400' : 'hover:bg-red-400' %> py-2 px-4 rounded transition duration-300"
-          >airbnb</a
-        >
-      </li>
+<header class="bg-white/90 backdrop-blur-md text-gray-700 shadow-sm sticky top-0 z-50 border-b border-gray-100">
+  <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+    <!-- Logo -->
+    <a href="/" class="flex items-center gap-2 text-rose-500 hover:text-rose-600 transition-colors">
+      <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M16 1.252a1.36 1.36 0 00-.77.24l-3.23 2.153C6.44 7.353 1.996 11.233 1.996 17.5c0 5.617 3.33 9.252 8.356 9.252 2.652 0 5.092-1.221 6.877-3.344a29.135 29.135 0 001.32-1.684l.086-.118c.032.04.058.077.086.118a29.134 29.134 0 001.32 1.684c1.785 2.123 4.225 3.344 6.877 3.344 5.026 0 8.356-3.635 8.356-9.252 0-6.267-4.444-10.147-10.004-13.855l-3.23-2.153a1.36 1.36 0 00-.77-.24zm0 2.668l3.167 2.11c5.385 3.593 9.477 7.218 9.477 12.72 0 4.161-2.28 6.584-5.69 6.584-1.693 0-3.385-.805-4.821-2.511a31.815 31.815 0 01-1.652-2.185l-.547-.803c-.26-.381-.667-.615-1.11-.615-.443 0-.85.234-1.11.615l-.547.803a31.815 31.815 0 01-1.652 2.185C10.05 24.509 8.358 25.314 6.665 25.314c-3.41 0-5.69-2.423-5.69-6.584 0-5.502 4.092-9.127 9.477-12.72L16 3.92zm0 10.665a3.834 3.834 0 100 7.668 3.834 3.834 0 000-7.668z"></path></svg>
+      <span class="text-2xl font-extrabold tracking-tight hidden sm:block">airbnb</span>
+    </a>
 
+    <!-- Navigation Links -->
+    <ul class="hidden md:flex space-x-1 items-center">
       <% if (isLoggedIn) { %>
-
       <li>
-        <a
-          href="/homes"
-          class="<%= currentPage === 'Home' ? 'bg-red-400' : 'hover:bg-red-400' %> py-2 px-4 rounded transition duration-300"
-          >Homes-List</a
-        >
+        <a href="/homes" class="<%= currentPage === 'Home' ? 'bg-gray-100 text-gray-900 font-semibold' : 'hover:bg-gray-50 text-gray-600 hover:text-gray-900' %> px-4 py-2 rounded-full transition-all duration-300 text-sm font-medium">Homes</a>
       </li>
       <li>
-        <a
-          href="/favourites"
-          class="<%= currentPage === 'favourites' ? 'bg-red-400' : 'hover:bg-red-400' %> py-2 px-4 rounded transition duration-300"
-          >Favourites</a
-        >
+        <a href="/favourites" class="<%= currentPage === 'favourites' ? 'bg-gray-100 text-gray-900 font-semibold' : 'hover:bg-gray-50 text-gray-600 hover:text-gray-900' %> px-4 py-2 rounded-full transition-all duration-300 text-sm font-medium">Favourites</a>
       </li>
       <li>
-        <a
-          href="/bookings"
-          class="<%= currentPage === 'bookings' ? 'bg-red-400' : 'hover:bg-red-400' %> py-2 px-4 rounded transition duration-300"
-          >Bookings</a
-        >
+        <a href="/bookings" class="<%= currentPage === 'bookings' ? 'bg-gray-100 text-gray-900 font-semibold' : 'hover:bg-gray-50 text-gray-600 hover:text-gray-900' %> px-4 py-2 rounded-full transition-all duration-300 text-sm font-medium">Bookings</a>
       </li>
       <li>
-        <a
-          href="/host/host-home-list"
-          class="<%= currentPage === 'host-homes' ? 'bg-red-400' : 'hover:bg-red-400' %> py-2 px-4 rounded transition duration-300"
-          >Host Homes</a
-        >
+        <a href="/host/host-home-list" class="<%= currentPage === 'host-homes' ? 'bg-gray-100 text-gray-900 font-semibold' : 'hover:bg-gray-50 text-gray-600 hover:text-gray-900' %> px-4 py-2 rounded-full transition-all duration-300 text-sm font-medium">Host Homes</a>
       </li>
       <li>
-        <a
-          href="/host/add-home"
-          class="<%= currentPage === 'addHome' ? 'bg-red-400' : 'hover:bg-red-400' %> py-2 px-4 rounded transition duration-300"
-          >Add Home</a
-        >
+        <a href="/host/add-home" class="<%= currentPage === 'addHome' ? 'bg-gray-100 text-gray-900 font-semibold' : 'hover:bg-gray-50 text-gray-600 hover:text-gray-900' %> px-4 py-2 rounded-full transition-all duration-300 text-sm font-medium">Add Home</a>
       </li>
-    <% } %>
-    </ul>
-    
-    <ul class="flex space-x-4">
-      <% if (!isLoggedIn) { %>
-      <li>
-        <a
-          href="/login"
-          class="hover:bg-red-400 py-2 px-4 rounded transition duration-300"
-          >Login</a
-        >
-      </li>
-      <% } else { %>
-      <form action="/logout" method="post" style="display: inline;">
-        <button type="submit" class="hover:bg-red-400 py-2 px-4 rounded transition duration-300 cursor-pointer">Logout</button>
-      </form>
       <% } %>
     </ul>
+    
+    <!-- Auth Buttons -->
+    <div class="flex items-center space-x-3">
+      <% if (!isLoggedIn) { %>
+      <a href="/login" class="text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-100 px-5 py-2.5 rounded-full transition-colors">
+        Log in
+      </a>
+      <a href="/signup" class="text-sm font-bold text-white bg-gradient-to-r from-rose-500 to-red-500 hover:from-rose-600 hover:to-red-600 px-6 py-2.5 rounded-full shadow-md hover:shadow-lg transform transition-all duration-300 hover:-translate-y-0.5">
+        Sign up
+      </a>
+      <% } else { %>
+      <form action="/logout" method="post" class="m-0 p-0 inline-flex">
+        <button type="submit" class="text-sm font-medium text-gray-700 border border-gray-300 hover:border-gray-900 hover:bg-gray-50 px-5 py-2 rounded-full transition-colors cursor-pointer">
+          Log out
+        </button>
+      </form>
+      <% } %>
+    </div>
   </nav>
 </header>
