@@ -649,6 +649,10 @@ video {
   display: inline-block;
 }
 
+.inline {
+  display: inline;
+}
+
 .flex {
   display: flex;
 }
@@ -699,6 +703,10 @@ video {
 
 .max-w-sm {
   max-width: 24rem;
+}
+
+.cursor-pointer {
+  cursor: pointer;
 }
 
 .grid-cols-1 {
