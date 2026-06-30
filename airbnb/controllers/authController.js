@@ -1,4 +1,5 @@
 const { body, validationResult } = require('express-validator');
+const User = require('../models/user');
 
 exports.getLogin = (req, res, next) => {
   res.render("auth/login", {
@@ -56,6 +57,19 @@ exports.postSignup = [
       oldInput: req.body
     });
   }
-  console.log(req.body);
-  res.redirect("/login");
+
+  const user = new User({
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    email: req.body.email,
+    password: req.body.password,
+    userType: req.body.userType
+  });
+
+  user.save().then(() => {
+    res.redirect("/login");
+  }).catch(err => {
+    console.log(err);
+    res.redirect("/signup");
+  });
 }];
